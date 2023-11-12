@@ -72,13 +72,24 @@ public class OutputView {
         String decimalTotalBenefitAmount = parser.inputMoneyToDecimalFormat(totalBenefitAmount);
         System.out.println(decimalTotalBenefitAmount+"원");
     }
+
+    public void printExpectPayAmount(int day, List<String> nameList, int [] countList){
+        System.out.println("\n<할인 후 예상 결제 금액>");
+        int totalAmount = validator.getTotalOrderAmount(nameList,countList);
+        int benefitAmount = discountService.getTotalBenefitAmount(day,nameList,countList);
+        int expectPayAmount = totalAmount - benefitAmount;
+        String decimalExpectPayAmount = parser.inputMoneyToDecimalFormat(expectPayAmount);
+        System.out.println(decimalExpectPayAmount+"원");
+
+
+    }
     public void printBadge(List<String> list1, int [] list2){
         System.out.println("\n<12월 이벤트 배지>");
         String badge = badgeService.giveBadge(list1,list2);
         System.out.println(badge);
     }
 
-    //0인지 판별하는 로직 추가해야함(if로)
+    //0인지 판별하는 로직 추가해야함(if로),추가 했음
     public void printDdayDiscount(int day){
         int dDayDiscount = discountService.discountOnDday(day);
         if(dDayDiscount != NO_DISCOUNT) {
