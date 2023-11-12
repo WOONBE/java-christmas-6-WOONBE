@@ -53,6 +53,18 @@ public class Validator {
         }return true;
     }
 
+    //3. 입력 형식이 다른 경우 (음식-개수)
+    public boolean isValidInputForm(List<String> list){
+        for(String input : list){
+            if(!input.contains("-")){
+                ErrorMessage.inputMenuErrorMessage();
+                throw new IllegalArgumentException();
+            }
+        }return true;
+    }
+
+
+
 
 
 
