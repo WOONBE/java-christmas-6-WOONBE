@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import java.util.Arrays;
+
 public enum Menu {
     SOUP("appetizer","양송이스프", 6000),
     TAPAS("appetizer","타파스",5500),
@@ -37,6 +39,33 @@ public enum Menu {
 
     public int getPrice() {
         return price;
+    }
+
+    public static String[] getAppetizerMenu() {
+        return Arrays.stream(values())
+                .filter(menu -> "appetizer".equals(menu.getType()))
+                .map(Menu::getName)
+                .toArray(String[]::new);
+    }
+    public static String[] getMainDishMenu() {
+        return Arrays.stream(values())
+                .filter(menu -> "mainDish".equals(menu.getType()))
+                .map(Menu::getName)
+                .toArray(String[]::new);
+    }
+
+    public static String[] getDessertMenu() {
+        return Arrays.stream(values())
+                .filter(menu -> "dessert".equals(menu.getType()))
+                .map(Menu::getName)
+                .toArray(String[]::new);
+    }
+
+    public static String[] getDrinkMenu() {
+        return Arrays.stream(values())
+                .filter(menu -> "drink".equals(menu.getType()))
+                .map(Menu::getName)
+                .toArray(String[]::new);
     }
 
 
