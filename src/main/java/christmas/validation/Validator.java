@@ -4,6 +4,7 @@ import christmas.domain.Menu;
 import christmas.view.ErrorMessage;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static christmas.domain.Menu.getMenuNames;
@@ -62,6 +63,16 @@ public class Validator {
             }
         }return true;
     }
+    //4. 중복되는 메뉴가 있는 경우
+    public boolean isDuplicateMenu(List<String> nameList){
+        HashSet<String> set = new HashSet<>(nameList);
+        if(nameList.size() != set.size()){
+            ErrorMessage.inputMenuErrorMessage();
+            throw new IllegalArgumentException();
+        }
+        return true;
+    }
+
 
 
 
