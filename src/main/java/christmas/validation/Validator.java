@@ -43,6 +43,18 @@ public class Validator {
         }return true;
     }
 
+    //2. 개수 1개 이상이 아닐시
+    public boolean isValidOrderCount(int [] list){
+        for(Integer count : list){
+            if(count < 1){
+                ErrorMessage.inputMenuErrorMessage();
+                throw new IllegalArgumentException();
+            }
+        }return true;
+    }
+
+
+
 
 
 
