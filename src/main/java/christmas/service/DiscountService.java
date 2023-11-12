@@ -64,6 +64,31 @@ public class DiscountService {
         return dayOfWeekDiscount;
     }
 
+    public int discountOnWeekend(int day, List<String> nameList, int [] countList) {
+        int weekendDiscount = NO_DISCOUNT;
+        //주말일 경우 메인 메뉴 각각 2023
+        DayOfWeek dayOfWeek = parser.parseNumberToDayOfWeek(day);
+        if(Arrays.stream(weekend).anyMatch(w -> w.equals(dayOfWeek))){
+            //메인 메뉴 할인 적용
+            weekendDiscount = getWeekendDiscount(nameList,countList);
+        }
+        return weekendDiscount;
+    }
+    public int getWeekendDiscount(List<String> nameList, int[] countList) {
+        String[] mainDishNameList = Menu.getMainDishMenu();
+        int weekendDiscount = NO_DISCOUNT;
+        for (int i = 0; i < nameList.size(); i++) {
+            String menuName = nameList.get(i);
+            int menuCount = countList[i];
+            int menuDiscount = (int) Arrays.stream(mainDishNameList)
+                    .filter(name -> name.equals(menuName)) // 주어진 이름이 dessert에 속하는지 필터링
+                    .count() * MENU_DISCOUNT_AMOUNT * menuCount; // 메인 메뉴 개수에 따라 각각 2023원씩 할인 금액을 증가
+            weekendDiscount += menuDiscount;
+        }
+        return weekendDiscount;
+    }
+
+
 
 
 
