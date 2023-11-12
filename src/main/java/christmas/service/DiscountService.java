@@ -99,6 +99,16 @@ public class DiscountService {
         return specialDiscount;
     }
 
+    public int souvenirService(List<String> list1, int [] list2){
+        int totalAmount = validator.getTotalOrderAmount(list1,list2);
+        int souvenirDiscount = NO_DISCOUNT;
+        if(totalAmount >= MIN_TOTAL_AMOUNT){
+            souvenirDiscount += CHAMPAGNE_PRICE;
+        }
+        return souvenirDiscount;
+    }
+
+
 
 
 
