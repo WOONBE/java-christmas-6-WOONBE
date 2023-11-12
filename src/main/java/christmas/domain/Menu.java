@@ -41,6 +41,15 @@ public enum Menu {
         return price;
     }
 
+    //입력받은 이름과 같은 메뉴면 그 메뉴의 가격 리턴
+    public static int getMenuPrice(String input){
+        return Arrays.stream(values())
+                .filter(menu -> input.equals(menu.getName()))
+                .mapToInt(Menu::getPrice)
+                .findFirst()
+                .orElse(-1);
+    }
+
     public static String[] getAppetizerMenu() {
         return Arrays.stream(values())
                 .filter(menu -> "appetizer".equals(menu.getType()))
