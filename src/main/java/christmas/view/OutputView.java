@@ -66,6 +66,12 @@ public class OutputView {
         printSpecialDayDiscount(day);
         printSouvenirDiscount(nameList,countList);
     }
+    public void printTotalBenefitAmount(int day, List<String> nameList, int [] countList){
+        System.out.println("\n<총혜택 금액>");
+        int totalBenefitAmount = discountService.getTotalBenefitAmount(day,nameList,countList);
+        String decimalTotalBenefitAmount = parser.inputMoneyToDecimalFormat(totalBenefitAmount);
+        System.out.println(decimalTotalBenefitAmount+"원");
+    }
     public void printBadge(List<String> list1, int [] list2){
         System.out.println("\n<12월 이벤트 배지>");
         String badge = badgeService.giveBadge(list1,list2);
