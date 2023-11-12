@@ -72,6 +72,18 @@ public class Validator {
         }
         return true;
     }
+    //메뉴는 20개가 넘어가면 안된다
+    public boolean isValidTotalOrderCount(int [] list){
+        int totalCount = 0;
+        for(int count : list){
+            totalCount += count;
+        }
+        if(totalCount > 20){
+            ErrorMessage.inputMenuErrorMessage();
+            throw new IllegalArgumentException();
+        }
+        return true;
+    }
 
 
 
