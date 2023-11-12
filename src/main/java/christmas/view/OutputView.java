@@ -54,10 +54,17 @@ public class OutputView {
     }
 
     //모든 혜택 내역 출력
-    public void printAllBenefits(){
+    public void printAllBenefits(int day, List<String> nameList, int [] countList){
         System.out.println("\n<혜택 내역>");
-
-
+        if(discountService.getTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT){
+            System.out.println("없음");
+            return;
+        }
+        printDdayDiscount(day);
+        printDayOfWeekDiscount(day,nameList,countList);
+        printWeekendDiscount(day,nameList,countList);
+        printSpecialDayDiscount(day);
+        printSouvenirDiscount(nameList,countList);
     }
     public void printBadge(List<String> list1, int [] list2){
         System.out.println("\n<12월 이벤트 배지>");
