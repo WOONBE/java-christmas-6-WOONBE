@@ -88,6 +88,17 @@ public class DiscountService {
         return weekendDiscount;
     }
 
+    public int discountOnSpecialDay(int day){
+        //일요일 이거나 25일이면 총주문금액에서 1000할인
+        int specialDiscount = NO_DISCOUNT;
+        DayOfWeek dayOfWeek = parser.parseNumberToDayOfWeek(day);
+        if(dayOfWeek.equals(DayOfWeek.SUNDAY) || day == 25){
+            //총 주문금액 -1000
+            specialDiscount += TOTAL_DISCOUNT_AMOUNT;
+        }
+        return specialDiscount;
+    }
+
 
 
 
