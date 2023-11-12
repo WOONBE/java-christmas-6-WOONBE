@@ -17,6 +17,15 @@ public class Validator {
         }
         return true;
     }
+    public boolean isValidNumberInRange(int number){
+        int start = START_NUMBER;
+        int end = END_NUMBER;
+        if(number < start || number > end){
+            ErrorMessage.inputDayErrorMessage();
+            throw new IllegalArgumentException();
+        }
+        return true;
+    }
 
 
 
