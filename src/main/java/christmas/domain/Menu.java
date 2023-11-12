@@ -50,6 +50,12 @@ public enum Menu {
                 .orElse(-1);
     }
 
+    public static String[] getMenuNames() {
+        return Arrays.stream(Menu.values())
+                .map(Menu::getName)
+                .toArray(String[]::new);
+    }
+
     public static String[] getAppetizerMenu() {
         return Arrays.stream(values())
                 .filter(menu -> "appetizer".equals(menu.getType()))
