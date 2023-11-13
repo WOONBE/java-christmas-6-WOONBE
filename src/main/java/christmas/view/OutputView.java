@@ -1,7 +1,6 @@
 package christmas.view;
 
-import christmas.service.BadgeService;
-import christmas.service.DiscountService;
+import christmas.service.UserService;
 import christmas.utils.Parser;
 import christmas.validation.Validator;
 
@@ -14,9 +13,7 @@ public class OutputView {
     Validator validator = new Validator();
     Parser parser = new Parser();
 
-    DiscountService discountService = new DiscountService();
-
-    BadgeService badgeService = new BadgeService();
+    UserService userService = new UserService();
 
     public void startMessage(){
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
@@ -46,7 +43,7 @@ public class OutputView {
     //리팩토링 필요
     public void printSouvenirMenu(List<String> list1, int [] list2){
         System.out.println("\n<증정 메뉴>");
-        if(discountService.souvenirService(list1,list2) != 25000 || validator.getTotalOrderAmount(list1,list2) < 10000){
+        if(userService.souvenirService(list1,list2) != 25000 || validator.getTotalOrderAmount(list1,list2) < 10000){
             System.out.println("없음");
             return;
         }
@@ -56,7 +53,7 @@ public class OutputView {
     //모든 혜택 내역 출력
     public void printAllBenefits(int day, List<String> nameList, int [] countList){
         System.out.println("\n<혜택 내역>");
-        if(discountService.getTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT || validator.getTotalOrderAmount(nameList,countList) < 10000){
+        if(userService.getTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT || validator.getTotalOrderAmount(nameList,countList) < 10000){
             System.out.println("없음");
             return;
         }
@@ -68,7 +65,7 @@ public class OutputView {
     }
     public void printTotalBenefitAmount(int day, List<String> nameList, int [] countList){
         System.out.println("\n<총혜택 금액>");
-        int totalBenefitAmount = discountService.getTotalBenefitAmount(day,nameList,countList);
+        int totalBenefitAmount = userService.getTotalBenefitAmount(day,nameList,countList);
         String decimalTotalBenefitAmount = parser.inputMoneyToDecimalFormat(totalBenefitAmount);
         System.out.println(decimalTotalBenefitAmount+"원");
     }
@@ -76,41 +73,41 @@ public class OutputView {
     public void printExpectPayAmount(int day, List<String> nameList, int [] countList){
         System.out.println("\n<할인 후 예상 결제 금액>");
         int totalAmount = validator.getTotalOrderAmount(nameList,countList);
-        int benefitAmount = discountService.getTotalBenefitAmount(day,nameList,countList);
+        int benefitAmount = userService.getTotalBenefitAmount(day,nameList,countList);
         int expectPayAmount = totalAmount - benefitAmount;
         String decimalExpectPayAmount = parser.inputMoneyToDecimalFormat(expectPayAmount);
         System.out.println(decimalExpectPayAmount+"원");
     }
     public void printBadge(int day, List<String> list1, int [] list2){
         System.out.println("\n<12월 이벤트 배지>");
-        String badge = badgeService.giveBadge(day,list1,list2);
+        String badge = userService.giveBadge(day,list1,list2);
         System.out.println(badge);
     }
 
     //0인지 판별하는 로직 추가해야함(if로),추가 했음
     public void printDdayDiscount(int day){
-        int dDayDiscount = discountService.discountOnDday(day);
+        int dDayDiscount = userService.discountOnDday(day);
         if(dDayDiscount != NO_DISCOUNT) {
             String decimalDdayDiscount = parser.inputMoneyToDecimalFormat(dDayDiscount);
             System.out.println("크리스마스 디데이 할인: -" + decimalDdayDiscount + "원");
         }
     }
     public void printDayOfWeekDiscount(int day, List<String> nameList, int [] countList){
-        int dayOfWeekDiscount = discountService.discountOnDayOfWeek(day,nameList,countList);
+        int dayOfWeekDiscount = userService.discountOnDayOfWeek(day,nameList,countList);
         if(dayOfWeekDiscount != NO_DISCOUNT) {
             String decimalDayOfWeekDiscount = parser.inputMoneyToDecimalFormat(dayOfWeekDiscount);
             System.out.println("평일 할인: -" + decimalDayOfWeekDiscount + "원");
         }
     }
     public void printWeekendDiscount(int day, List<String> nameList, int [] countList){
-        int weekendDiscount = discountService.discountOnWeekend(day,nameList,countList);
+        int weekendDiscount = userService.discountOnWeekend(day,nameList,countList);
         if(weekendDiscount != NO_DISCOUNT) {
             String decimalWeekendDiscount = parser.inputMoneyToDecimalFormat(weekendDiscount);
             System.out.println("주말 할인: -" + decimalWeekendDiscount + "원");
         }
     }
     public void printSpecialDayDiscount(int day){
-        int specialDayDiscount = discountService.discountOnSpecialDay(day);
+        int specialDayDiscount = userService.discountOnSpecialDay(day);
         if(specialDayDiscount != NO_DISCOUNT) {
             String decimalSpecialDayDiscount = parser.inputMoneyToDecimalFormat(specialDayDiscount);
             System.out.println("특별 할인: -" + decimalSpecialDayDiscount + "원");
@@ -118,7 +115,7 @@ public class OutputView {
     }
 
     public void printSouvenirDiscount(List<String> list1, int [] list2){
-        int champagnePrice = discountService.souvenirService(list1,list2);
+        int champagnePrice = userService.souvenirService(list1,list2);
         if(champagnePrice != NO_DISCOUNT) {
             String decimalChampagnePrice = parser.inputMoneyToDecimalFormat(champagnePrice);
             System.out.println("증정 이벤트: -" + decimalChampagnePrice + "원");

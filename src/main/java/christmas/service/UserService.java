@@ -8,7 +8,7 @@ import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.List;
 
-public class DiscountService {
+public class UserService {
 
     private final Parser parser = new Parser();
     private final Validator validator = new Validator();
@@ -24,6 +24,9 @@ public class DiscountService {
 
     private static final int MIN_TOTAL_AMOUNT = 120000;
     private static final int CHAMPAGNE_PRICE = 25000;
+    private static final int SANTA_AMOUNT = 20000;
+    private static final int TREE_AMOUNT = 10000;
+    private static final int STAR_AMOUNT = 5000;
 
     private final DayOfWeek[] weekday = {DayOfWeek.SUNDAY, DayOfWeek.MONDAY,DayOfWeek.TUESDAY,DayOfWeek.WEDNESDAY,DayOfWeek.THURSDAY};
 
@@ -121,12 +124,21 @@ public class DiscountService {
         }
         return totalBenefitAmount;
     }
+    public String giveBadge(int day,List<String> list1, int [] list2){
 
+        int total = getTotalBenefitAmount(day,list1, list2);
+        String badge = "";
 
-
-
-
-
-
+        if(total >= SANTA_AMOUNT){
+            return badge = "산타";
+        }
+        if(total >= TREE_AMOUNT){
+            return badge = "트리";
+        }
+        if(total >= STAR_AMOUNT){
+            return badge = "별";
+        }
+        return "없음";
+    }
 
 }
