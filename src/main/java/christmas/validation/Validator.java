@@ -71,7 +71,7 @@ public class Validator {
     //3. 입력 형식이 다른 경우 (음식-개수)/2개 리스트로 반환전
     public boolean isValidInputForm(List<String> list){
         for(String input : list){
-            if(!input.contains("-")){
+            if(!input.contains("-")|| !input.matches(".*\\d.*")){
                 ErrorMessage.inputMenuErrorMessage();
                 throw new IllegalArgumentException();
             }
