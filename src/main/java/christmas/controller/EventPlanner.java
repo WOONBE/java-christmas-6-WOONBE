@@ -47,6 +47,7 @@ public class EventPlanner {
         inputValidUserMenu();
     }
     public void showPlannerResult(User user){
+        outputView.printMonthAndDay(user.getDay());
         outputView.printOrderMenu(user.getNameList(),user.getCountList());
         outputView.printTotalAmount(user.getNameList(),user.getCountList());
         outputView.printSouvenirMenu(user.getNameList(),user.getCountList());
