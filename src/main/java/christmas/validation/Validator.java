@@ -109,15 +109,7 @@ public class Validator {
         }return true;
     }
 
-    //총주문 금액 산출, 나중에 서비스쪽으로 메서드 따로 분리
-    public int getTotalOrderAmount(List<String> list1, int [] list2){
-        int totalOrderAmount = 0;
-        for(int i = 0; i < list1.size(); i++){
-            //list1의 제품 이름이 enum의 제품 이름과 동일시 가격 호출 * list2의 개수곱
-            totalOrderAmount += Menu.getMenuPrice(list1.get(i)) * list2[i];
-        }
-        return totalOrderAmount;
-    }
+
 
 
 }

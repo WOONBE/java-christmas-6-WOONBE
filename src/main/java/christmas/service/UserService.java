@@ -103,7 +103,7 @@ public class UserService {
     }
 
     public int souvenirService(List<String> list1, int [] list2){
-        int totalAmount = validator.getTotalOrderAmount(list1,list2);
+        int totalAmount = getTotalOrderAmount(list1,list2);
         int souvenirDiscount = NO_DISCOUNT;
         if(totalAmount >= MIN_TOTAL_AMOUNT){
             souvenirDiscount += CHAMPAGNE_PRICE;
@@ -118,11 +118,21 @@ public class UserService {
         int specialDayDiscount = discountOnSpecialDay(day);
         int champagnePrice = souvenirService(nameList,countList);
 
-        if(validator.getTotalOrderAmount(nameList,countList) > 10000){
+        if(getTotalOrderAmount(nameList,countList) > 10000){
             totalBenefitAmount = dDayDiscount + dayOfWeekDiscount
                     + weekendDiscount + specialDayDiscount + champagnePrice;
         }
         return totalBenefitAmount;
+    }
+
+    //총주문 금액 산출, 나중에 서비스쪽으로 메서드 따로 분리
+    public int getTotalOrderAmount(List<String> list1, int [] list2){
+        int totalOrderAmount = 0;
+        for(int i = 0; i < list1.size(); i++){
+            //list1의 제품 이름이 enum의 제품 이름과 동일시 가격 호출 * list2의 개수곱
+            totalOrderAmount += Menu.getMenuPrice(list1.get(i)) * list2[i];
+        }
+        return totalOrderAmount;
     }
     public String giveBadge(int day,List<String> list1, int [] list2){
 

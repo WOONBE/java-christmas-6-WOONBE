@@ -35,7 +35,7 @@ public class OutputView {
     }
     public void printTotalAmount(List<String> list1, int [] list2){
         System.out.println("\n<할인 전 총주문 금액>");
-        int totalAmount = validator.getTotalOrderAmount(list1,list2);
+        int totalAmount = userService.getTotalOrderAmount(list1,list2);
         String decimalTotalAmount = parser.inputMoneyToDecimalFormat(totalAmount);
         System.out.println(decimalTotalAmount+"원");
     }
@@ -43,7 +43,7 @@ public class OutputView {
     //리팩토링 필요
     public void printSouvenirMenu(List<String> list1, int [] list2){
         System.out.println("\n<증정 메뉴>");
-        if(userService.souvenirService(list1,list2) != 25000 || validator.getTotalOrderAmount(list1,list2) < 10000){
+        if(userService.souvenirService(list1,list2) != 25000 || userService.getTotalOrderAmount(list1,list2) < 10000){
             System.out.println("없음");
             return;
         }
@@ -53,7 +53,7 @@ public class OutputView {
     //모든 혜택 내역 출력
     public void printAllBenefits(int day, List<String> nameList, int [] countList){
         System.out.println("\n<혜택 내역>");
-        if(userService.getTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT || validator.getTotalOrderAmount(nameList,countList) < 10000){
+        if(userService.getTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT || userService.getTotalOrderAmount(nameList,countList) < 10000){
             System.out.println("없음");
             return;
         }
@@ -72,7 +72,7 @@ public class OutputView {
 
     public void printExpectPayAmount(int day, List<String> nameList, int [] countList){
         System.out.println("\n<할인 후 예상 결제 금액>");
-        int totalAmount = validator.getTotalOrderAmount(nameList,countList);
+        int totalAmount = userService.getTotalOrderAmount(nameList,countList);
         int benefitAmount = userService.getTotalBenefitAmount(day,nameList,countList);
         int expectPayAmount = totalAmount - benefitAmount;
         String decimalExpectPayAmount = parser.inputMoneyToDecimalFormat(expectPayAmount);
