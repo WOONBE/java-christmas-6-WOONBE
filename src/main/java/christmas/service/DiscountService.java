@@ -32,12 +32,12 @@ public class DiscountService {
 
 
     public int discountOnDday(int day){
-        int dDaydiscount = NO_DISCOUNT;
+        int dDayDiscount = NO_DISCOUNT;
         if(day <= 25){
-            dDaydiscount = START_AMOUNT + (day - START_DAY) * DAY_AMOUNT;
-            return dDaydiscount;
+            dDayDiscount = START_AMOUNT + (day - START_DAY) * DAY_AMOUNT;
+            return dDayDiscount;
         }
-        return dDaydiscount;
+        return dDayDiscount;
     }
 
     public  int discountOnDayOfWeek(int day, List<String> nameList, int [] countList){
@@ -106,6 +106,17 @@ public class DiscountService {
             souvenirDiscount += CHAMPAGNE_PRICE;
         }
         return souvenirDiscount;
+    }
+    public int getTotalBenefitAmount(int day, List<String> nameList, int [] countList){
+        int dDayDiscount = discountOnDday(day);
+        int dayOfWeekDiscount = discountOnDayOfWeek(day,nameList,countList);
+        int weekendDiscount = discountOnWeekend(day,nameList,countList);
+        int specialDayDiscount = discountOnSpecialDay(day);
+        int champagnePrice = souvenirService(nameList,countList);
+
+        int totalBenefitAmount = dDayDiscount + dayOfWeekDiscount
+                + weekendDiscount + specialDayDiscount + champagnePrice;
+        return totalBenefitAmount;
     }
 
 
