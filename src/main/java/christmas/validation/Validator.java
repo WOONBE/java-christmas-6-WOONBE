@@ -16,6 +16,7 @@ public class Validator {
     private static final int START_NUMBER = 1;
     private static final int END_NUMBER = 31;
 
+    //day input시 사용
     public boolean isNumberCharInteger(String string) {
         if (!string.chars().allMatch(Character::isDigit)) {
             ErrorMessage.inputDayErrorMessage();
@@ -32,8 +33,21 @@ public class Validator {
         }
         return true;
     }
+
+    public List<String> isValidUserInputNameList(List<String> nameList){
+        isValidMenuName(nameList);
+        isDuplicateMenu(nameList);
+        isOrderAllDrink(nameList);
+        return nameList;
+    }
+
+    public int [] isValidUserInputCountList(int [] countList){
+        isValidOrderCount(countList);
+        isValidTotalOrderCount(countList);
+        return countList;
+    }
     //메뉴 검증
-    //1. 없는 메뉴일시
+    //1. 없는 메뉴일시(nameList)
     public boolean isValidMenuName(List<String> nameList){
         String[] menuNameList = getMenuNames();
         for(String name : nameList){
@@ -44,7 +58,7 @@ public class Validator {
         }return true;
     }
 
-    //2. 개수 1개 이상이 아닐시
+    //2. 개수 1개 이상이 아닐시(intCountList에서)
     public boolean isValidOrderCount(int [] list){
         for(Integer count : list){
             if(count < 1){
@@ -54,7 +68,7 @@ public class Validator {
         }return true;
     }
 
-    //3. 입력 형식이 다른 경우 (음식-개수)
+    //3. 입력 형식이 다른 경우 (음식-개수)/2개 리스트로 반환전
     public boolean isValidInputForm(List<String> list){
         for(String input : list){
             if(!input.contains("-")){
@@ -63,7 +77,7 @@ public class Validator {
             }
         }return true;
     }
-    //4. 중복되는 메뉴가 있는 경우
+    //4. 중복되는 메뉴가 있는 경우(nameList)
     public boolean isDuplicateMenu(List<String> nameList){
         HashSet<String> set = new HashSet<>(nameList);
         if(nameList.size() != set.size()){
@@ -95,7 +109,7 @@ public class Validator {
         }return true;
     }
 
-    //총주문 금액 산출, 나중에 메서드 따로 분리
+    //총주문 금액 산출, 나중에 서비스쪽으로 메서드 따로 분리
     public int getTotalOrderAmount(List<String> list1, int [] list2){
         int totalOrderAmount = 0;
         for(int i = 0; i < list1.size(); i++){
@@ -104,6 +118,9 @@ public class Validator {
         }
         return totalOrderAmount;
     }
+
+
+
 
 
 
