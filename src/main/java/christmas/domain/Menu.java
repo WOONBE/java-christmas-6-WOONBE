@@ -3,7 +3,7 @@ package christmas.domain;
 import java.util.Arrays;
 
 public enum Menu {
-    SOUP("appetizer","양송이스프", 6000),
+    SOUP("appetizer","양송이수프", 6000),
     TAPAS("appetizer","타파스",5500),
     SALAD("appetizer", "시저샐러드", 8000),
     STEAK("mainDish","티본스테이크",55000),
