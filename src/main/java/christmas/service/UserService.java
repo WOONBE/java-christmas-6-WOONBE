@@ -2,16 +2,15 @@ package christmas.service;
 
 import christmas.domain.Menu;
 import christmas.utils.Parser;
-import christmas.validation.Validator;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class UserService {
 
     private final Parser parser = new Parser();
-    private final Validator validator = new Validator();
     private static final int START_AMOUNT = 1000;
     private static final int START_DAY = 1;
     private static final int NO_DISCOUNT = 0;
@@ -125,7 +124,7 @@ public class UserService {
         return totalBenefitAmount;
     }
 
-    //총주문 금액 산출, 나중에 서비스쪽으로 메서드 따로 분리
+    //총주문 금액 산출
     public int getTotalOrderAmount(List<String> list1, int [] list2){
         int totalOrderAmount = 0;
         for(int i = 0; i < list1.size(); i++){
@@ -149,6 +148,24 @@ public class UserService {
             return badge = "별";
         }
         return "없음";
+    }
+
+    //추후에 다른 클래스로 리팩토링
+    public List<String> inputMenuToNameList(List<String> list){
+        List<String> menuNameList = new ArrayList<>();
+        for(String string : list){
+            menuNameList.add(string.split("-")[0]);
+        }
+        return menuNameList;
+    }
+
+    //추후에 다른 클래스로 리팩토링
+    public List<String> inputMenuToCountList(List<String> list) {
+        List<String> menuCountList = new ArrayList<>();
+        for (String string : list) {
+            menuCountList.add(string.split("-")[1]);
+        }
+        return menuCountList;
     }
 
 }

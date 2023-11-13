@@ -24,23 +24,7 @@ public class Parser {
         return Arrays.stream(string.split(",")).map(String :: trim).collect(Collectors.toList());
     }
 
-    //추후에 다른 클래스로 리팩토링
-    public List<String> inputMenuToNameList(List<String> list){
-        List<String> menuNameList = new ArrayList<>();
-        for(String string : list){
-            menuNameList.add(string.split("-")[0]);
-        }
-        return menuNameList;
-    }
 
-    //추후에 다른 클래스로 리팩토링
-    public List<String> inputMenuToCountList(List<String> list) {
-        List<String> menuCountList = new ArrayList<>();
-        for (String string : list) {
-            menuCountList.add(string.split("-")[1]);
-        }
-        return menuCountList;
-    }
     public int [] stringListToIntArray(List<String> list) {
         return list.stream().mapToInt(Integer :: parseInt).toArray();
     }

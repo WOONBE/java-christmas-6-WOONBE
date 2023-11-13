@@ -11,8 +11,6 @@ import static christmas.domain.Menu.getMenuNames;
 
 public class Validator {
 
-    private Menu menu;
-
     private static final int START_NUMBER = 1;
     private static final int END_NUMBER = 31;
 

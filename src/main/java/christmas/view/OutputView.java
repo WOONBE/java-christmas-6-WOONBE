@@ -10,7 +10,6 @@ public class OutputView {
 
     private static final int NO_DISCOUNT = 0;
 
-    Validator validator = new Validator();
     Parser parser = new Parser();
 
     UserService userService = new UserService();
@@ -20,8 +19,7 @@ public class OutputView {
     }
     
     public void printMonthAndDay(int day){
-        System.out.printf("\n12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", day);
-
+        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", day);
     }
 
     //메뉴와 개수 print

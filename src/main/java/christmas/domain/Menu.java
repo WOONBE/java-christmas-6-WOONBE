@@ -56,6 +56,8 @@ public enum Menu {
                 .toArray(String[]::new);
     }
 
+
+    //사용안하니까 삭제할듯
     public static String[] getAppetizerMenu() {
         return Arrays.stream(values())
                 .filter(menu -> "appetizer".equals(menu.getType()))
