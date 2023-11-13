@@ -1,5 +1,6 @@
 package christmas.utils;
 
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,9 +41,12 @@ public class Parser {
         }
         return menuCountList;
     }
-    public int [] stringToIntArray(List<String> list) {
+    public int [] stringListToIntArray(List<String> list) {
         return list.stream().mapToInt(Integer :: parseInt).toArray();
     }
 
-
+    public String inputMoneyToDecimalFormat(int amount){
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        return decimalFormat.format(amount);
+    }
 }

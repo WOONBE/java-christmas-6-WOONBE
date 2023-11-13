@@ -83,9 +83,9 @@ public class OutputView {
 
 
     }
-    public void printBadge(List<String> list1, int [] list2){
+    public void printBadge(int day, List<String> list1, int [] list2){
         System.out.println("\n<12월 이벤트 배지>");
-        String badge = badgeService.giveBadge(list1,list2);
+        String badge = badgeService.giveBadge(day,list1,list2);
         System.out.println(badge);
     }
 

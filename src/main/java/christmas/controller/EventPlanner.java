@@ -53,7 +53,7 @@ public class EventPlanner {
         outputView.printAllBenefits(user.getDay(),user.getNameList(),user.getCountList());
         outputView.printTotalBenefitAmount(user.getDay(),user.getNameList(),user.getCountList());
         outputView.printExpectPayAmount(user.getDay(),user.getNameList(),user.getCountList());
-        outputView.printBadge(user.getNameList(),user.getCountList());
+        outputView.printBadge(user.getDay(),user.getNameList(),user.getCountList());
     }
 
 
