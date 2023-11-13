@@ -108,14 +108,17 @@ public class DiscountService {
         return souvenirDiscount;
     }
     public int getTotalBenefitAmount(int day, List<String> nameList, int [] countList){
+        int totalBenefitAmount = 0;
         int dDayDiscount = discountOnDday(day);
         int dayOfWeekDiscount = discountOnDayOfWeek(day,nameList,countList);
         int weekendDiscount = discountOnWeekend(day,nameList,countList);
         int specialDayDiscount = discountOnSpecialDay(day);
         int champagnePrice = souvenirService(nameList,countList);
 
-        int totalBenefitAmount = dDayDiscount + dayOfWeekDiscount
-                + weekendDiscount + specialDayDiscount + champagnePrice;
+        if(validator.getTotalOrderAmount(nameList,countList) > 10000){
+            totalBenefitAmount = dDayDiscount + dayOfWeekDiscount
+                    + weekendDiscount + specialDayDiscount + champagnePrice;
+        }
         return totalBenefitAmount;
     }
 

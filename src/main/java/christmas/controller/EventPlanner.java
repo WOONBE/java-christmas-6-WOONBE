@@ -57,6 +57,7 @@ public class EventPlanner {
     }
 
 
+
     public int inputValidUserDay(){
         if (userDayCache != 0) {
             return userDayCache;

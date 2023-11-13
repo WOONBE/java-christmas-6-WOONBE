@@ -46,7 +46,7 @@ public class OutputView {
     //리팩토링 필요
     public void printSouvenirMenu(List<String> list1, int [] list2){
         System.out.println("\n<증정 메뉴>");
-        if(discountService.souvenirService(list1,list2) != 25000){
+        if(discountService.souvenirService(list1,list2) != 25000 || validator.getTotalOrderAmount(list1,list2) < 10000){
             System.out.println("없음");
             return;
         }
@@ -56,7 +56,7 @@ public class OutputView {
     //모든 혜택 내역 출력
     public void printAllBenefits(int day, List<String> nameList, int [] countList){
         System.out.println("\n<혜택 내역>");
-        if(discountService.getTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT){
+        if(discountService.getTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT || validator.getTotalOrderAmount(nameList,countList) < 10000){
             System.out.println("없음");
             return;
         }
@@ -80,8 +80,6 @@ public class OutputView {
         int expectPayAmount = totalAmount - benefitAmount;
         String decimalExpectPayAmount = parser.inputMoneyToDecimalFormat(expectPayAmount);
         System.out.println(decimalExpectPayAmount+"원");
-
-
     }
     public void printBadge(int day, List<String> list1, int [] list2){
         System.out.println("\n<12월 이벤트 배지>");
