@@ -4,9 +4,9 @@ import java.util.List;
 
 public class User {
 
-    int day;
-    List<String> nameList;
-    int [] countList;
+    private final int day;
+    private final List<String> nameList;
+    private final int [] countList;
 
 
     public User(int day, List<String> nameList, int[] countList) {
