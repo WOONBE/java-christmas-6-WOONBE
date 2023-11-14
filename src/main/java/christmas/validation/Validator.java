@@ -96,7 +96,6 @@ public class Validator {
         }
         return true;
     }
-    //총주문금액 10,000이상부터 이벤트 적용
 
     //음료만 주문시 주문 불가, 나중에 메서드 따로 분리
     public boolean isOrderAllDrink(List<String> nameList){
