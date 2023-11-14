@@ -23,12 +23,6 @@ public class EventPlanner {
 
     private User user;
 
-    //시작문구
-    //유저 객체에서 날짜 입력 받음, 검증
-    //메뉴와 개수 입력 받음, 검증
-    //미리보기 문구
-
-
 
     public void runPlanner(){
         startPlanner();
@@ -36,11 +30,11 @@ public class EventPlanner {
         showPlannerResult(user);
     }
 
-    public User createUser(){
+    private User createUser(){
         return new User(getUserDay(),getNameListFromUserInput(),getCountListFromUserInput());
     }
 
-    public void startPlanner(){
+    private void startPlanner(){
         outputView.startMessage();
         inputView.beforeInputDay();
         inputValidUserDay();
@@ -61,7 +55,7 @@ public class EventPlanner {
 
 
 
-    public int inputValidUserDay(){
+    private int inputValidUserDay(){
         if (userDayCache != 0) {
             return userDayCache;
         }
@@ -81,7 +75,7 @@ public class EventPlanner {
         return userDay;
     }
 
-    public int getUserDay() {
+    private int getUserDay() {
         return inputValidUserDay();
     }
 
@@ -93,7 +87,7 @@ public class EventPlanner {
     }
 
 
-    public Map<String, Object> inputValidUserMenu(){
+    private Map<String, Object> inputValidUserMenu(){
         if (userInputMenuCache != null) {
             return userInputMenuCache;
         }
@@ -122,13 +116,13 @@ public class EventPlanner {
         return Map.of("nameList", nameList, "countList", countList);
     }
 
-    public List<String> getNameListFromUserInput() {
+    private List<String> getNameListFromUserInput() {
         Map<String, Object> userInput = inputValidUserMenu();
         List<String> nameList =  (List<String>) userInput.get("nameList");
         return nameList;
     }
 
-    public int[] getCountListFromUserInput() {
+    private int[] getCountListFromUserInput() {
         Map<String, Object> userInput = inputValidUserMenu();
         int[] countList = (int[]) userInput.get("countList");
         return countList;

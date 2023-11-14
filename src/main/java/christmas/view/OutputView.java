@@ -14,9 +14,9 @@ public class OutputView {
 
     private static final int MIN_TOTAL_AMOUNT = 10000;
 
-    Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
-    UserService userService = new UserService();
+    private final UserService userService = new UserService();
 
     public void startMessage(){
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
@@ -121,8 +121,6 @@ public class OutputView {
             System.out.println("증정 이벤트: -" + decimalChampagnePrice + "원");
         }
     }
-
-
 
 
 }

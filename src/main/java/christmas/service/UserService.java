@@ -55,7 +55,7 @@ public class UserService {
         return dayOfWeekDiscount;
     }
 
-    public int getDayOfWeekDiscount(List<String> nameList, int[] countList) {
+    private int getDayOfWeekDiscount(List<String> nameList, int[] countList) {
         String[] dessertNameList = Menu.getDessertMenu();
         int dayOfWeekDiscount = NO_DISCOUNT;
         for (int i = 0; i < nameList.size(); i++) {
@@ -79,7 +79,7 @@ public class UserService {
         }
         return weekendDiscount;
     }
-    public int getWeekendDiscount(List<String> nameList, int[] countList) {
+    private int getWeekendDiscount(List<String> nameList, int[] countList) {
         String[] mainDishNameList = Menu.getMainDishMenu();
         int weekendDiscount = NO_DISCOUNT;
         for (int i = 0; i < nameList.size(); i++) {
