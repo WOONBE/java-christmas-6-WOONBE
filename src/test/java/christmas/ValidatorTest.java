@@ -2,7 +2,6 @@ package christmas;
 
 import christmas.utils.Parser;
 import christmas.validation.Validator;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -63,7 +62,7 @@ class ValidatorTest {
 
         //3. 주문 메뉴가 모두 음료일때 예외 발생
         assertThatThrownBy(() -> {
-            validator.isOrderAllDrink(List.of("레드와인","제로콜라"));
+            validator.isMenuAllDrink(List.of("레드와인","제로콜라"));
         }).isInstanceOf(IllegalArgumentException.class);
     }
 

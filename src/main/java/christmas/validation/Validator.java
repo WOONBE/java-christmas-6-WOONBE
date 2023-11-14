@@ -35,7 +35,7 @@ public class Validator {
     public List<String> isValidUserInputNameList(List<String> nameList){
         isValidMenuName(nameList);
         isDuplicateMenu(nameList);
-        isOrderAllDrink(nameList);
+        isMenuAllDrink(nameList);
         return nameList;
     }
 
@@ -98,7 +98,7 @@ public class Validator {
     }
 
     //음료만 주문시 주문 불가, 나중에 메서드 따로 분리
-    public boolean isOrderAllDrink(List<String> nameList){
+    public boolean isMenuAllDrink(List<String> nameList){
         String [] drinkNameList = Menu.getDrinkMenu();
         if (Arrays.stream(nameList.toArray()).allMatch(Arrays.asList(drinkNameList)::contains)){
             ErrorMessage.inputMenuErrorMessage();

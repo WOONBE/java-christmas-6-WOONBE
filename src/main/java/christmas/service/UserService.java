@@ -136,6 +136,13 @@ public class UserService {
         }
         return totalOrderAmount;
     }
+
+    public int getExpectPayAmount(int day, List<String> nameList, int [] countList){
+        int totalAmount = getTotalOrderAmount(nameList,countList);
+        int benefitAmount = getTotalBenefitAmount(day,nameList,countList);
+        int expectPayAmount = totalAmount - benefitAmount + CHAMPAGNE_PRICE;
+        return expectPayAmount;
+    }
     public String giveBadge(int day,List<String> list1, int [] list2){
 
         int total = getTotalBenefitAmount(day,list1, list2);
