@@ -17,11 +17,14 @@ public class UserService {
 
     private static final int DAY_AMOUNT = 100;
 
+    private static final int SPECIAL_DAY = 25;
+
     private static final int MENU_DISCOUNT_AMOUNT = 2023;
 
     private static final int TOTAL_DISCOUNT_AMOUNT = 1000;
+    private static final int MIN_TOTAL_AMOUNT = 10000;
 
-    private static final int MIN_TOTAL_AMOUNT = 120000;
+    private static final int MIN_CHAMPAGNE_TOTAL_AMOUNT = 120000;
     private static final int CHAMPAGNE_PRICE = 25000;
     private static final int SANTA_AMOUNT = 20000;
     private static final int TREE_AMOUNT = 10000;
@@ -94,7 +97,7 @@ public class UserService {
         //일요일 이거나 25일이면 총주문금액에서 1000할인
         int specialDiscount = NO_DISCOUNT;
         DayOfWeek dayOfWeek = parser.parseNumberToDayOfWeek(day);
-        if(dayOfWeek.equals(DayOfWeek.SUNDAY) || day == 25){
+        if(dayOfWeek.equals(DayOfWeek.SUNDAY) || day == SPECIAL_DAY){
             //총 주문금액 -1000
             specialDiscount += TOTAL_DISCOUNT_AMOUNT;
         }
@@ -104,20 +107,20 @@ public class UserService {
     public int souvenirService(List<String> list1, int [] list2){
         int totalAmount = getTotalOrderAmount(list1,list2);
         int souvenirDiscount = NO_DISCOUNT;
-        if(totalAmount >= MIN_TOTAL_AMOUNT){
+        if(totalAmount >= MIN_CHAMPAGNE_TOTAL_AMOUNT){
             souvenirDiscount += CHAMPAGNE_PRICE;
         }
         return souvenirDiscount;
     }
     public int getTotalBenefitAmount(int day, List<String> nameList, int [] countList){
-        int totalBenefitAmount = 0;
+        int totalBenefitAmount = NO_DISCOUNT;
         int dDayDiscount = discountOnDday(day);
         int dayOfWeekDiscount = discountOnDayOfWeek(day,nameList,countList);
         int weekendDiscount = discountOnWeekend(day,nameList,countList);
         int specialDayDiscount = discountOnSpecialDay(day);
         int champagnePrice = souvenirService(nameList,countList);
 
-        if(getTotalOrderAmount(nameList,countList) > 10000){
+        if(getTotalOrderAmount(nameList,countList) > MIN_TOTAL_AMOUNT){
             totalBenefitAmount = dDayDiscount + dayOfWeekDiscount
                     + weekendDiscount + specialDayDiscount + champagnePrice;
         }
@@ -126,7 +129,7 @@ public class UserService {
 
     //총주문 금액 산출
     public int getTotalOrderAmount(List<String> list1, int [] list2){
-        int totalOrderAmount = 0;
+        int totalOrderAmount = NO_DISCOUNT;
         for(int i = 0; i < list1.size(); i++){
             //list1의 제품 이름이 enum의 제품 이름과 동일시 가격 호출 * list2의 개수곱
             totalOrderAmount += Menu.getMenuPrice(list1.get(i)) * list2[i];
@@ -150,7 +153,6 @@ public class UserService {
         return "없음";
     }
 
-    //추후에 다른 클래스로 리팩토링
     public List<String> inputMenuToNameList(List<String> list){
         List<String> menuNameList = new ArrayList<>();
         for(String string : list){
@@ -159,7 +161,6 @@ public class UserService {
         return menuNameList;
     }
 
-    //추후에 다른 클래스로 리팩토링
     public List<String> inputMenuToCountList(List<String> list) {
         List<String> menuCountList = new ArrayList<>();
         for (String string : list) {
