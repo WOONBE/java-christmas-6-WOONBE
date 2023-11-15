@@ -2,8 +2,6 @@ package christmas.view;
 
 import christmas.service.UserService;
 import christmas.utils.Parser;
-import christmas.validation.Validator;
-
 import java.util.List;
 
 public class OutputView {
