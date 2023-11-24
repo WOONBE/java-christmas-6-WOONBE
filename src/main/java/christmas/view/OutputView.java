@@ -43,17 +43,18 @@ public class OutputView {
     //리팩토링 필요
     public void printSouvenirMenu(List<String> list1, int [] list2){
         System.out.println("\n<증정 메뉴>");
-        if(userService.souvenirService(list1,list2) != CHAMPAGNE_PRICE || userService.calculateTotalOrderAmount(list1,list2) < MIN_TOTAL_AMOUNT){
+        if(userService.souvenirService(list1,list2) != CHAMPAGNE_PRICE || isOverMinimumTotalAmount(list1, list2)){
             System.out.println("없음");
             return;
         }
         System.out.println("샴페인 1개");
     }
 
+
     //모든 혜택 내역 출력
     public void printAllBenefits(int day, List<String> nameList, int [] countList){
         System.out.println("\n<혜택 내역>");
-        if(userService.calculateTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT || userService.calculateTotalOrderAmount(nameList,countList) < MIN_TOTAL_AMOUNT){
+        if(userService.calculateTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT || isOverMinimumTotalAmount(nameList, countList)){
             System.out.println("없음");
             return;
         }
@@ -62,6 +63,10 @@ public class OutputView {
         printWeekendDiscount(day,nameList,countList);
         printSpecialDayDiscount(day);
         printSouvenirDiscount(nameList,countList);
+    }
+
+    private boolean isOverMinimumTotalAmount(List<String> list1, int[] list2) {
+        return userService.calculateTotalOrderAmount(list1, list2) < MIN_TOTAL_AMOUNT;
     }
     public void printTotalBenefitAmount(int day, List<String> nameList, int [] countList){
         System.out.println("\n<총혜택 금액>");
