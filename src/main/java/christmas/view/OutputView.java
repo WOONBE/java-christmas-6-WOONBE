@@ -35,7 +35,7 @@ public class OutputView {
     }
     public void printTotalAmount(List<String> list1, int [] list2){
         System.out.println("\n<할인 전 총주문 금액>");
-        int totalAmount = userService.getTotalOrderAmount(list1,list2);
+        int totalAmount = userService.calculateTotalOrderAmount(list1,list2);
         String decimalTotalAmount = parser.inputMoneyToDecimalFormat(totalAmount);
         System.out.println(decimalTotalAmount+"원");
     }
@@ -43,7 +43,7 @@ public class OutputView {
     //리팩토링 필요
     public void printSouvenirMenu(List<String> list1, int [] list2){
         System.out.println("\n<증정 메뉴>");
-        if(userService.souvenirService(list1,list2) != CHAMPAGNE_PRICE || userService.getTotalOrderAmount(list1,list2) < MIN_TOTAL_AMOUNT){
+        if(userService.souvenirService(list1,list2) != CHAMPAGNE_PRICE || userService.calculateTotalOrderAmount(list1,list2) < MIN_TOTAL_AMOUNT){
             System.out.println("없음");
             return;
         }
@@ -53,7 +53,7 @@ public class OutputView {
     //모든 혜택 내역 출력
     public void printAllBenefits(int day, List<String> nameList, int [] countList){
         System.out.println("\n<혜택 내역>");
-        if(userService.getTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT || userService.getTotalOrderAmount(nameList,countList) < MIN_TOTAL_AMOUNT){
+        if(userService.calculateTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT || userService.calculateTotalOrderAmount(nameList,countList) < MIN_TOTAL_AMOUNT){
             System.out.println("없음");
             return;
         }
@@ -65,14 +65,14 @@ public class OutputView {
     }
     public void printTotalBenefitAmount(int day, List<String> nameList, int [] countList){
         System.out.println("\n<총혜택 금액>");
-        int totalBenefitAmount = userService.getTotalBenefitAmount(day,nameList,countList);
+        int totalBenefitAmount = userService.calculateTotalBenefitAmount(day,nameList,countList);
         String decimalTotalBenefitAmount = parser.inputMoneyToDecimalFormat(totalBenefitAmount);
         System.out.println("-"+decimalTotalBenefitAmount+"원");
     }
 
     public void printExpectPayAmount(int day, List<String> nameList, int [] countList){
         System.out.println("\n<할인 후 예상 결제 금액>");
-        int expectPayAmount = userService.getExpectPayAmount(day,nameList,countList);
+        int expectPayAmount = userService.calculateExpectPayAmount(day,nameList,countList);
         String decimalExpectPayAmount = parser.inputMoneyToDecimalFormat(expectPayAmount);
         System.out.println(decimalExpectPayAmount+"원");
     }

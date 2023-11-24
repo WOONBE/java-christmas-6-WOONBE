@@ -50,12 +50,12 @@ public class UserService {
         DayOfWeek dayOfWeek = parser.parseNumberToDayOfWeek(day);
         if(Arrays.stream(weekday).anyMatch(w -> w.equals(dayOfWeek))){
             //디저트 메뉴 할인 적용
-            dayOfWeekDiscount = getDayOfWeekDiscount(nameList, countList);
+            dayOfWeekDiscount = calculateDayOfWeekDiscount(nameList, countList);
         }
         return dayOfWeekDiscount;
     }
 
-    private int getDayOfWeekDiscount(List<String> nameList, int[] countList) {
+    private int calculateDayOfWeekDiscount(List<String> nameList, int[] countList) {
         String[] dessertNameList = Menu.getDessertMenu();
         int dayOfWeekDiscount = NO_DISCOUNT;
         for (int i = 0; i < nameList.size(); i++) {
@@ -75,11 +75,11 @@ public class UserService {
         DayOfWeek dayOfWeek = parser.parseNumberToDayOfWeek(day);
         if(Arrays.stream(weekend).anyMatch(w -> w.equals(dayOfWeek))){
             //메인 메뉴 할인 적용
-            weekendDiscount = getWeekendDiscount(nameList,countList);
+            weekendDiscount = calculateWeekendDiscount(nameList,countList);
         }
         return weekendDiscount;
     }
-    private int getWeekendDiscount(List<String> nameList, int[] countList) {
+    private int calculateWeekendDiscount(List<String> nameList, int[] countList) {
         String[] mainDishNameList = Menu.getMainDishMenu();
         int weekendDiscount = NO_DISCOUNT;
         for (int i = 0; i < nameList.size(); i++) {
@@ -105,14 +105,17 @@ public class UserService {
     }
 
     public int souvenirService(List<String> list1, int [] list2){
-        int totalAmount = getTotalOrderAmount(list1,list2);
+        int totalAmount = calculateTotalOrderAmount(list1,list2);
         int souvenirDiscount = NO_DISCOUNT;
         if(totalAmount >= MIN_CHAMPAGNE_TOTAL_AMOUNT){
             souvenirDiscount += CHAMPAGNE_PRICE;
         }
         return souvenirDiscount;
     }
-    public int getTotalBenefitAmount(int day, List<String> nameList, int [] countList){
+
+    //이 부분 리팩터링 할만함(totalAmount랑 expectpay에 get 메서드만 있음 -> calculate 정도 로직으로 만들어서 빼내도 괜찮을듯)
+    //근데 막상하려니 매개변수가 너무 많아서 일단 이대로
+    public int calculateTotalBenefitAmount(int day, List<String> nameList, int [] countList){
         int totalBenefitAmount = NO_DISCOUNT;
         int dDayDiscount = discountOnDday(day);
         int dayOfWeekDiscount = discountOnDayOfWeek(day,nameList,countList);
@@ -120,15 +123,15 @@ public class UserService {
         int specialDayDiscount = discountOnSpecialDay(day);
         int champagnePrice = souvenirService(nameList,countList);
 
-        if(getTotalOrderAmount(nameList,countList) > MIN_TOTAL_AMOUNT){
+        if(calculateTotalOrderAmount(nameList,countList) > MIN_TOTAL_AMOUNT){
             totalBenefitAmount = dDayDiscount + dayOfWeekDiscount
                     + weekendDiscount + specialDayDiscount + champagnePrice;
         }
         return totalBenefitAmount;
     }
 
-    //총주문 금액 산출
-    public int getTotalOrderAmount(List<String> list1, int [] list2){
+    //총주문 금액 산출(기능에 맞게 이름 변경)
+    public int calculateTotalOrderAmount(List<String> list1, int [] list2){
         int totalOrderAmount = NO_DISCOUNT;
         for(int i = 0; i < list1.size(); i++){
             //list1의 제품 이름이 enum의 제품 이름과 동일시 가격 호출 * list2의 개수곱
@@ -136,17 +139,17 @@ public class UserService {
         }
         return totalOrderAmount;
     }
-
-    public int getExpectPayAmount(int day, List<String> nameList, int [] countList){
-        int totalAmount = getTotalOrderAmount(nameList,countList);
-        int benefitAmount = getTotalBenefitAmount(day,nameList,countList);
+    //기능에 맞게 이름 변경
+    public int calculateExpectPayAmount(int day, List<String> nameList, int [] countList){
+        int totalAmount = calculateTotalOrderAmount(nameList,countList);
+        int benefitAmount = calculateTotalBenefitAmount(day,nameList,countList);
         int champagne = souvenirService(nameList,countList);
         int expectPayAmount = totalAmount - benefitAmount + champagne;
         return expectPayAmount;
     }
     public String giveBadge(int day,List<String> list1, int [] list2){
 
-        int total = getTotalBenefitAmount(day,list1, list2);
+        int total = calculateTotalBenefitAmount(day,list1, list2);
         String badge = "";
 
         if(total >= SANTA_AMOUNT){
