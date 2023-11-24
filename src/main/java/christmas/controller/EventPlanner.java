@@ -102,7 +102,7 @@ public class EventPlanner {
         }
     }
 
-    //이거 리팩토링 필요(input이랑 validate 분리)
+    //이거 리팩토링 필요(input이랑 validate 분리) -> 1124 분리 완료
     private Map<String, Object> validateUserInputMenu(String input) {
         Map<String, Object> userInput = validateUserMenu(input);
         userInputMenuCache = userInput;
@@ -111,9 +111,9 @@ public class EventPlanner {
 
     private Map<String, Object> validateUserMenu(String inputMenu) {
         List<String> list = parser.stringToArray(inputMenu);
-        List<String> nameList = getValidStringList(list);
+        List<String> nameList = getValidNameList(list);
         int [] countList = parser.stringListToIntArray( userService.inputMenuToCountList(list));
-        validateAllMenuInput(nameList, countList);
+        validateAllInputMenu(nameList, countList);
         return Map.of("nameList", nameList, "countList", countList);
     }
 
@@ -129,12 +129,12 @@ public class EventPlanner {
         return countList;
     }
 
-    private void validateAllMenuInput(List<String> nameList, int[] countList) {
+    private void validateAllInputMenu(List<String> nameList, int[] countList) {
         validator.isValidUserInputNameList(nameList);
         validator.isValidUserInputCountList(countList);
     }
 
-    private List<String> getValidStringList(List<String> list) {
+    private List<String> getValidNameList(List<String> list) {
         validator.isValidInputForm(list);
         List<String> nameList = userService.inputMenuToNameList(list);
         return nameList;
