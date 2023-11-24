@@ -37,9 +37,9 @@ public class EventPlanner {
     private void startPlanner(){
         outputView.startMessage();
         inputView.beforeInputDay();
-        inputValidUserDay();
+        inputUserDay();
         inputView.beforeInputMenu();
-        inputValidUserMenu();
+        inputUserMenu();
     }
 
     public void showPlannerResult(User user){
@@ -55,31 +55,31 @@ public class EventPlanner {
 
 
 
-    private int inputValidUserDay(){
+    private int inputUserDay(){
         if (userDayCache != 0) {
             return userDayCache;
         }
         while(true){
             try {
-                return inputAndValidateUserDay();
+                String inputStringDay = inputView.inputExpectDay();
+                return validateInputUserDay(inputStringDay);
             }catch (IllegalArgumentException e){
-                return inputValidUserDay();
+                return inputUserDay();
             }
         }
     }
 
-    private int inputAndValidateUserDay() {
-        String inputStringDay = inputView.inputExpectDay();
-        int userDay = validateInputUserDay(inputStringDay);
+    private int validateInputUserDay(String input) {
+        int userDay = validateUserDay(input);
         userDayCache = userDay;
         return userDay;
     }
 
     private int getUserDay() {
-        return inputValidUserDay();
+        return inputUserDay();
     }
 
-    private int validateInputUserDay(String inputStringDay) {
+    private int validateUserDay(String inputStringDay) {
         validator.isNumberCharInteger(inputStringDay);
         int userDay = parser.parseInputStringNumber(inputStringDay);
         validator.isValidNumberInRange(userDay);
@@ -87,28 +87,29 @@ public class EventPlanner {
     }
 
 
-    private Map<String, Object> inputValidUserMenu(){
+    private Map<String, Object> inputUserMenu(){
         if (userInputMenuCache != null) {
             return userInputMenuCache;
         }
         while (true){
             try {
-                return inputAndValidateUserMenu();
+                String inputMenu = inputView.inputOrderMenu();
+                return validateUserInputMenu(inputMenu);
             }
             catch (IllegalArgumentException e){
-                return inputValidUserMenu();
+                return inputUserMenu();
             }
         }
     }
 
-    private Map<String, Object> inputAndValidateUserMenu() {
-        String inputMenu = inputView.inputOrderMenu();
-        Map<String, Object> userInput = validateUserInputMenu(inputMenu);
+    //이거 리팩토링 필요(input이랑 validate 분리)
+    private Map<String, Object> validateUserInputMenu(String input) {
+        Map<String, Object> userInput = validateUserMenu(input);
         userInputMenuCache = userInput;
         return userInput;
     }
 
-    private Map<String, Object> validateUserInputMenu(String inputMenu) {
+    private Map<String, Object> validateUserMenu(String inputMenu) {
         List<String> list = parser.stringToArray(inputMenu);
         List<String> nameList = getValidStringList(list);
         int [] countList = parser.stringListToIntArray( userService.inputMenuToCountList(list));
@@ -117,13 +118,13 @@ public class EventPlanner {
     }
 
     private List<String> getNameListFromUserInput() {
-        Map<String, Object> userInput = inputValidUserMenu();
+        Map<String, Object> userInput = inputUserMenu();
         List<String> nameList =  (List<String>) userInput.get("nameList");
         return nameList;
     }
 
     private int[] getCountListFromUserInput() {
-        Map<String, Object> userInput = inputValidUserMenu();
+        Map<String, Object> userInput = inputUserMenu();
         int[] countList = (int[]) userInput.get("countList");
         return countList;
     }
