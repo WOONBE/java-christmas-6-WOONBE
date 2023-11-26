@@ -84,17 +84,22 @@ public class Validator {
         }
         return true;
     }
-    //메뉴는 20개가 넘어가면 안된다
+    //메뉴는 20개가 넘어가면 안된다, 1126 메서드 분리
     public boolean isValidTotalOrderCount(int [] list){
-        int totalCount = 0;
-        for(int count : list){
-            totalCount += count;
-        }
+        int totalCount = calculateTotalOrderCount(list);
         if(totalCount > 20){
             ErrorMessage.inputMenuErrorMessage();
             throw new IllegalArgumentException();
         }
         return true;
+    }
+
+    private int calculateTotalOrderCount(int[] list) {
+        int totalCount = 0;
+        for(int count : list){
+            totalCount += count;
+        }
+        return totalCount;
     }
 
     //음료만 주문시 주문 불가, 나중에 메서드 따로 분리
