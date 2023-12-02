@@ -7,13 +7,14 @@ import christmas.validation.Validator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class EventPlanner {
 
 
-    private Map<String, Object> userInputMenuCache;
+    private Map<String, Object> userInputMenuCache = new HashMap<>();
     private int userDayCache = 0;
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
@@ -88,7 +89,7 @@ public class EventPlanner {
 
 
     private Map<String, Object> inputUserMenu(){
-        if (userInputMenuCache != null) {
+        if (!userInputMenuCache.isEmpty()) {
             return userInputMenuCache;
         }
         while (true){

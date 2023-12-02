@@ -1,6 +1,9 @@
 package christmas;
 
 import christmas.controller.EventPlanner;
+import christmas.domain.Menu;
+
+import java.util.List;
 
 public class Application {
 

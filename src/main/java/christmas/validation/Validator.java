@@ -66,7 +66,7 @@ public class Validator {
         }return true;
     }
 
-    //3. 입력 형식이 다른 경우 (음식-개수)/2개 리스트로 반환전
+    //3. 입력 형식이 다른 경우 (음식-개수)/2개 리스트로 반환전, 최소 하나 이상의 숫자 포함할 경우
     public boolean isValidInputForm(List<String> list){
         for(String input : list){
             if(!input.contains("-")|| !input.matches(".*\\d.*")){
@@ -75,7 +75,7 @@ public class Validator {
             }
         }return true;
     }
-    //4. 중복되는 메뉴가 있는 경우(nameList)
+    //4. 중복되는 메뉴가 있는 경우(nameList), 이건 스트림으로도 구현 가능
     public boolean isDuplicateMenu(List<String> nameList){
         HashSet<String> set = new HashSet<>(nameList);
         if(nameList.size() != set.size()){

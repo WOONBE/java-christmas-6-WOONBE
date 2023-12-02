@@ -1,6 +1,8 @@
 package christmas.domain;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum Menu {
     SOUP("appetizer","양송이수프", 6000),
@@ -49,11 +51,15 @@ public enum Menu {
                 .findFirst()
                 .orElse(-1);
     }
-
     public static String[] getMenuNames() {
         return Arrays.stream(Menu.values())
                 .map(Menu::getName)
                 .toArray(String[]::new);
+    }
+    public static List<String> getMenuName(){
+        return Arrays.stream(Menu.values())
+                .map(Menu::getName)
+                .collect(Collectors.toList());
     }
 
     public static String[] getMainDishMenu() {
@@ -75,6 +81,7 @@ public enum Menu {
                 .filter(menu -> "drink".equals(menu.getType()))
                 .map(Menu::getName)
                 .toArray(String[]::new);
+        //.collect(Collectors.toList()); 리스트형식일땐 이렇게(배열보단 권장됨)
     }
 
 

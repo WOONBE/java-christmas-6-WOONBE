@@ -52,7 +52,7 @@ public class OutputView {
 
 
     //모든 혜택 내역 출력
-    public void printAllBenefits(int day, List<String> nameList, int [] countList){
+    public void printAllBenefits(int day, List<String> nameList, int[] countList){
         System.out.println("\n<혜택 내역>");
         if(userService.calculateTotalBenefitAmount(day,nameList,countList) == NO_DISCOUNT || isOverMinimumTotalAmount(nameList, countList)){
             System.out.println("없음");
