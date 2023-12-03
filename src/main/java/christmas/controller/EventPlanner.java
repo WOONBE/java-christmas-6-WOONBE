@@ -87,7 +87,7 @@ public class EventPlanner {
         return userDay;
     }
 
-
+    //1202 null 있던 부분 변경
     private Map<String, Object> inputUserMenu(){
         if (!userInputMenuCache.isEmpty()) {
             return userInputMenuCache;
@@ -118,6 +118,7 @@ public class EventPlanner {
         return Map.of("nameList", nameList, "countList", countList);
     }
 
+    //안에서 map을 생성하는것처럼 보이지만 위에서 캐시 사용하도록 되어있음
     private List<String> getNameListFromUserInput() {
         Map<String, Object> userInput = inputUserMenu();
         List<String> nameList =  (List<String>) userInput.get("nameList");

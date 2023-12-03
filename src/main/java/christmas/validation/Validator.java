@@ -13,6 +13,8 @@ public class Validator {
 
     private static final int START_NUMBER = 1;
     private static final int END_NUMBER = 31;
+    private final String[] menuNameList = getMenuNames();
+    private final String [] drinkNameList = Menu.getDrinkMenu();
 
     //day input시 사용
     public boolean isNumberCharInteger(String string) {
@@ -45,9 +47,9 @@ public class Validator {
         return countList;
     }
     //메뉴 검증
-    //1. 없는 메뉴일시(nameList)
+    //1. 없는 메뉴일시
+    //1202. 내부의 menuNameList를 외부로 이동(객체생성 제어)
     public boolean isValidMenuName(List<String> nameList){
-        String[] menuNameList = getMenuNames();
         for(String name : nameList){
             if (Arrays.stream(menuNameList).noneMatch(menuName -> menuName.equals(name))){
                 ErrorMessage.inputMenuErrorMessage();
@@ -75,10 +77,10 @@ public class Validator {
             }
         }return true;
     }
-    //4. 중복되는 메뉴가 있는 경우(nameList), 이건 스트림으로도 구현 가능
+    //4. 중복되는 메뉴가 있는 경우(nameList),
+    // 1202.스트림으로 변경
     public boolean isDuplicateMenu(List<String> nameList){
-        HashSet<String> set = new HashSet<>(nameList);
-        if(nameList.size() != set.size()){
+        if(nameList.size() != nameList.stream().distinct().count()){
             ErrorMessage.inputMenuErrorMessage();
             throw new IllegalArgumentException();
         }
@@ -103,14 +105,13 @@ public class Validator {
     }
 
     //음료만 주문시 주문 불가, 나중에 메서드 따로 분리
+    //1202. 내부의 호출되는 리스트 밖으로 뺌, asList는 애초에 리스트로 만들었으면 저럴 필요 없었을듯
     public boolean isMenuAllDrink(List<String> nameList){
-        String [] drinkNameList = Menu.getDrinkMenu();
         if (Arrays.stream(nameList.toArray()).allMatch(Arrays.asList(drinkNameList)::contains)){
             ErrorMessage.inputMenuErrorMessage();
             throw new IllegalArgumentException();
         }return true;
     }
-
 
 
 
